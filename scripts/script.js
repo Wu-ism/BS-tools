@@ -24,7 +24,7 @@ function calculateProratedPrice() {
     const discountedPrice = basePrice * (1 - tierDiscount);
 
     if (isNaN(numPlayers) || numPlayers <= 0 || endDate <= currentDate) {
-        alert("Please fill out the fields correctly. Ensure the end date is in the future.");
+        alert("Please fill out all the fields correctly. Ensure the end date is in the future.");
         return;
     }
 

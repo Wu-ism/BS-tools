@@ -7,32 +7,40 @@
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
-    <div class="topnav">
-        <a class="active" href="index.html">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="about.html">About</a>
-      </div>
-<div class="container">
-    <img width="400" height="87" src="https://www.brightsign.biz/wp-content/uploads/2023/02/BrightSign_logo.png?x94314" class="logo-light" alt="" decoding="async" srcset="https://www.brightsign.biz/wp-content/uploads/2023/02/BrightSign_logo.png 400w, https://www.brightsign.biz/wp-content/uploads/2023/02/BrightSign_logo-300x65.png 300w" sizes="(max-width: 400px) 100vw, 400px">
-    <h2>Prorated Pricing Calculator</h2>
-    <ol>
-    <li><label for="numPlayers">Number of Players:</label>
-        <input type="number" id="numPlayers" min="1" required></li>
 
-    <li><label for="endDate">Renewal Date:</label>
-        <input type="date" id="endDate" required></li>
+    <nav class="navbar">
+        <a href="#" class="toggle-button">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </a>
+        <ul class="nav-list">
+            <li><a href="#home">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>    
+
+<div class="container">
+    <img src="images/bslogo.png" alt="BrightSign Logo">
+    <h2>Prorated Pricing Calculator</h2>
+    <label for="numPlayers">Number of Players:</label>
+        <input type="number" id="numPlayers" min="1" required>
+
+    <label for="endDate">Renewal Date:</label>
+        <input type="date" id="endDate" required>
     
-    <li><label for="pricingTier">Pricing Tier:</label>
+    <label for="pricingTier">Pricing Tier:</label>
         <select id="pricingTier">
         <option value="base">Base Price ($99/player/year)</option>
         <option value="tier1">Tier 1 - 25% off</option>
         <option value="tier2">Tier 2 - 30% off</option>
         <option value="tier3">Tier 3 - 35% off</option>
-        </select></li>
+        </select>
 
     <button onclick="calculateProratedPrice()">Calculate</button>
-</ol>
+    
     <h1 id="result">Total cost is: $<span id="price">0</span></h1>
 </div>
 
