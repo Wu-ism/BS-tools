@@ -37,6 +37,9 @@ function calculateProratedPrice() {
 
     const proratedPrice = (discountedPrice / 365) * daysRemaining * numPlayers;
     document.getElementById('price').innerText = proratedPrice.toFixed(2); // Display result with two decimal places
+    document.getElementById('price').innerHTML = `<span class="red-text">$${proratedPrice.toFixed(2)}</span>`;
+
+
 }
 
 const toggleButton = document.querySelector('.toggle-button');
