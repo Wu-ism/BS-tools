@@ -1,27 +1,31 @@
 function calculateProratedPrice() {
     const basePrice = 99; // $99/player/year
     const numPlayers = parseInt(document.getElementById('numPlayers').value, 10);
+    
+    // Extract and set only date parts for endDate and currentDate
     const endDate = new Date(document.getElementById('endDate').value);
+    endDate.setHours(0, 0, 0, 0); 
+
     const currentDate = new Date();
+    currentDate.setHours(0, 0, 0, 0);
+    
     const pricingTier = document.getElementById('pricingTier').value;
 
-    let tierDiscount = 0;
+    let discountedPrice = basePrice;
     switch (pricingTier) {
         case 'tier1':
-            tierDiscount = 0.25;
+            discountedPrice = 74.25;
             break;
         case 'tier2':
-            tierDiscount = 0.30;
+            discountedPrice = 69.30;
             break;
         case 'tier3':
-            tierDiscount = 0.35;
+            discountedPrice = 64.35;
             break;
         default:
-            tierDiscount = 0;
+            discountedPrice = basePrice;
             break;
     }
-
-    const discountedPrice = basePrice * (1 - tierDiscount);
 
     if (isNaN(numPlayers) || numPlayers <= 0 || endDate <= currentDate) {
         alert("Please fill out all the fields correctly. Ensure the end date is in the future.");
@@ -34,3 +38,10 @@ function calculateProratedPrice() {
     const proratedPrice = (discountedPrice / 365) * daysRemaining * numPlayers;
     document.getElementById('price').innerText = proratedPrice.toFixed(2); // Display result with two decimal places
 }
+
+const toggleButton = document.querySelector('.toggle-button');
+const navList = document.querySelector('.nav-list');
+
+toggleButton.addEventListener('click', () => {
+    navList.classList.toggle('active');
+});
