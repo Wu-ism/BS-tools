@@ -8,38 +8,45 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <a href="#" class="toggle-button">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </a>
-        <ul class="nav-list">
-            <li><a href="#home">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>    
+<nav class="navbar" aria-label="Main Navigation">
+    <button class="toggle-button" aria-label="Toggle Menu">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </button>
+    <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>    
 
 <div class="container">
     <img src="images/bslogo.png" alt="BrightSign Logo">
     <h2>Prorated Pricing Calculator</h2>
-    <label for="numPlayers">Number of Players:</label>
-        <input type="number" id="numPlayers" min="1" required>
-
-    <label for="endDate">Renewal Date:</label>
-        <input type="date" id="endDate" required>
     
-    <label for="pricingTier">Pricing Tier:</label>
-        <select id="pricingTier">
-        <option value="base">Base Price ($99/player/year)</option>
-        <option value="tier1">Tier 1 - 25% off</option>
-        <option value="tier2">Tier 2 - 30% off</option>
-        <option value="tier3">Tier 3 - 35% off</option>
-        </select>
+    <form id="calculatorForm" onsubmit="event.preventDefault(); calculateProratedPrice();">
+        <fieldset>
+            <legend>Calculator Inputs</legend>
+            
+            <label for="numPlayers">Number of Players:</label>
+            <input type="number" id="numPlayers" min="1" required>
+        
+            <label for="endDate">Renewal Date:</label>
+            <input type="date" id="endDate" required>
+        
+            <label for="pricingTier">Pricing Tier:</label>
+            <select id="pricingTier">
+                <option value="base">Base Price ($99/player/year)</option>
+                <option value="tier1">Tier 1 - 25% off</option>
+                <option value="tier2">Tier 2 - 30% off</option>
+                <option value="tier3">Tier 3 - 35% off</option>
+            </select>
 
-    <button onclick="calculateProratedPrice()">Calculate</button>
+            <button type="submit">Calculate</button>
+        </fieldset>
+    </form>
     
     <h1 id="result">Total cost is: $<span id="price">0</span></h1>
 </div>
