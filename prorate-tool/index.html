@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prorated Pricing Calculator</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <img width="400" height="87" src="https://www.brightsign.biz/wp-content/uploads/2023/02/BrightSign_logo.png?x94314" class="logo-light" alt="" decoding="async" srcset="https://www.brightsign.biz/wp-content/uploads/2023/02/BrightSign_logo.png 400w, https://www.brightsign.biz/wp-content/uploads/2023/02/BrightSign_logo-300x65.png 300w" sizes="(max-width: 400px) 100vw, 400px">
+    <h2>Prorated Pricing Calculator</h2>
+    <ol>
+    <li><label for="numPlayers">Number of Players:</label>
+        <input type="number" id="numPlayers" min="1" required></li>
+
+    <li><label for="endDate">Renewal Date:</label>
+        <input type="date" id="endDate" required></li>
+    
+    <li><label for="pricingTier">Pricing Tier:</label>
+        <select id="pricingTier">
+        <option value="base">Base Price ($99/player/year)</option>
+        <option value="tier1">Tier 1 (25% off)</option>
+        <option value="tier2">Tier 2 (30% off)</option>
+        <option value="tier3">Tier 3 (35% off)</option>
+        </select></li>
+
+    <button onclick="calculateProratedPrice()">Calculate</button>
+</ol>
+    <h1 id="result">Total cost is: $<span id="price">0</span></h1>
+</div>
+
+<script src="scripts/script.js"></script>
+</body>
+</html>
