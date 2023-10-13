@@ -1,2 +1,2 @@
 # Wuism
- Personal
+ Personal, Start of a journey
