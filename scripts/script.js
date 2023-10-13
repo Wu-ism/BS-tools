@@ -1,8 +1,6 @@
 function calculateProratedPrice() {
     const basePrice = 99; // $99/player/year
     const numPlayers = parseInt(document.getElementById('numPlayers').value, 10);
-    
-    // Extract and set only date parts for endDate and currentDate
     const endDate = new Date(document.getElementById('endDate').value);
     endDate.setHours(0, 0, 0, 0); 
 
@@ -12,18 +10,23 @@ function calculateProratedPrice() {
     const pricingTier = document.getElementById('pricingTier').value;
 
     let discountedPrice = basePrice;
+    let tierDiscount = 0;
     switch (pricingTier) {
         case 'tier1':
             discountedPrice = 74.25;
+            tierDiscount = 0.25;
             break;
         case 'tier2':
             discountedPrice = 69.30;
+            tierDiscount = 0.30;
             break;
         case 'tier3':
             discountedPrice = 64.35;
+            tierDiscount = 0.35;
             break;
         default:
             discountedPrice = basePrice;
+            tierDiscount = 0;
             break;
     }
 
@@ -36,10 +39,16 @@ function calculateProratedPrice() {
     const daysRemaining = Math.round(Math.abs((endDate - currentDate) / oneDay));
 
     const proratedPrice = (discountedPrice / 365) * daysRemaining * numPlayers;
-    document.getElementById('price').innerText = proratedPrice.toFixed(2); // Display result with two decimal places
-    document.getElementById('price').innerHTML = `<span class="red-text">$${proratedPrice.toFixed(2)}</span>`;
 
-
+    // Populate the modal's breakdown elements
+    document.getElementById('basePriceDisplay').innerText = `$${discountedPrice.toFixed(2)}`;
+    document.getElementById('discountDisplay').innerText = `${(tierDiscount * 100).toFixed(2)}%`;
+    document.getElementById('daysRemainingDisplay').innerText = `${daysRemaining} days`;
+    document.getElementById('numPlayersDisplay').innerText = `${numPlayers}`;
+    document.getElementById('modalPrice').innerText = `$${proratedPrice.toFixed(2)}`;
+    
+    // Show the modal
+    $('#resultModal').modal('show');
 }
 
 const toggleButton = document.querySelector('.toggle-button');

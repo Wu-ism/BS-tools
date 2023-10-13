@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prorated Pricing Calculator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
 
 <nav class="navbar" aria-label="Main Navigation">
+    <!-- ... your navbar content ... -->
     <button class="toggle-button" aria-label="Toggle Menu">
         <span class="bar"></span>
         <span class="bar"></span>
@@ -23,7 +25,8 @@
 </nav>    
 
 <div class="container">
-    <img src="images/bslogo.png" alt="BrightSign Logo">
+    <!-- ... your container content ... -->
+        <img src="images/bslogo.png" alt="BrightSign Logo">
     <h2>Prorated Pricing Calculator</h2>
     
     <form id="calculatorForm" onsubmit="event.preventDefault(); calculateProratedPrice();">
@@ -46,11 +49,36 @@
             <button type="submit">Calculate</button>
         </fieldset>
     </form>
-    
-    <h1 id="result">Total cost is: <span id="price">$0</span></h1>
-
 </div>
 
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="resultModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Price Breakdown</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Base Price: <span id="basePriceDisplay" class="red-text">$0</span></p>
+          <p>Discount Applied: <span id="discountDisplay" class="red-text">0%</span></p>
+          <p>Days Remaining: <span id="daysRemainingDisplay" class="red-text">0 days</span></p>
+          <p>Number of Players: <span id="numPlayersDisplay" class="red-text">0</span></p>
+          <hr>
+          <p>Total Price: <span id="modalPrice" class="red-text large-bold-text">$0</span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="scripts/script.js"></script>
 </body>
 </html>

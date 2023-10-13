@@ -128,3 +128,15 @@ h1, h2 {
 .red-text {
   color: red;
 }
+/* Center the modal vertically */
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Make the price text large and bold */
+.large-bold-text {
+  font-size: 2em; /* Adjust this value to your preference */
+  font-weight: bold;
+}
