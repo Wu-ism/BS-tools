@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Embed URL Generator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #E5E1F0; /* Digital Purple */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            border: 5px solid #311C6B; /* BrightSign® Purple */
+            max-width: 400px;
+            text-align: center;
+        }
+        .container img {
+            width: 150px;
+        }
+        h2 {
+            color: #311C6B; /* BrightSign® Purple */
+        }
+        .btn-primary {
+            background-color: #311C6B; /* BrightSign® Purple */
+            border: none;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #701896; /* Ultraviolet */
+        }
+        .output {
+            margin-top: 20px;
+            background-color: #E5E1F0; /* Digital Purple */
+            padding: 10px;
+            border-radius: 5px;
+            word-wrap: break-word;
+        }
+        .output a {
+            color: #49C0FF; /* Highlighter Blue */
+            word-wrap: break-word;
+            text-decoration: none;
+        }
+        .copy-btn {
+            background-color: #28a745;
+            border: none;
+            padding: 8px 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            width: 100%;
+        }
+        .copy-btn.copied {
+            background-color: #1C1C1C; /* Soft Black */
+        }
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <img src="images/bslogo.png" alt="BrightSign Logo" class="mb-4">
+    <h2>YouTube URL Generator</h2>
+    
+    <form id="urlGeneratorForm" class="mt-4" onsubmit="generateUrl(); return false;">
+        <fieldset class="form-group">
+            <div class="form-group">
+                <label for="videoId">Enter YouTube Video ID:</label>
+                <input type="text" class="form-control" id="videoId" placeholder="e.g., 5McLcOgVfGE" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate URL</button>
+        </fieldset>
+    </form>
+
+    <div class="output" id="output"></div>
+</div>
+
+<script>
+    function generateUrl() {
+        // Get the video ID from the input field
+        var videoId = document.getElementById('videoId').value.trim();
+
+        if (videoId) {
+            // Construct the embed URL with the required parameters
+            var embedUrl = 'https://www.youtube.com/embed/' + videoId +
+                           '?playlist=' + videoId +
+                           '&autoplay=1&rel=0&controls=0&showinfo=0&loop=1&cc_load_policy=1';
+
+            // Display the result in the output div
+            document.getElementById('output').innerHTML = 
+                '<p>Generated YouTube Embed URL:</p>' +
+                '<a href="' + embedUrl + '" target="_blank" id="generatedUrl">' + embedUrl + '</a>' +
+                '<button class="copy-btn" id="copyButton" onclick="copyToClipboard()">Copy to Clipboard</button>';
+        } else {
+            document.getElementById('output').innerHTML = '<div class="alert alert-danger">Please enter a valid YouTube Video ID.</div>';
+        }
+    }
+
+    function copyToClipboard() {
+        // Get the generated URL text
+        var embedUrl = document.getElementById('generatedUrl').textContent;
+        
+        // Create a temporary text area element
+        var tempInput = document.createElement('textarea');
+        tempInput.value = embedUrl;
+        document.body.appendChild(tempInput);
+
+        // Select and copy the text
+        tempInput.select();
+        document.execCommand('copy');
+
+        // Remove the temporary text area element
+        document.body.removeChild(tempInput);
+
+        // Change button text and color
+        var copyButton = document.getElementById('copyButton');
+        copyButton.innerText = 'Copied!';
+        copyButton.classList.add('copied');
+    }
+</script>
+
+</body>
+</html>
