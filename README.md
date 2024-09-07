@@ -1,2 +1,2 @@
 # Wuism
- Personal, Start of a journey
+Ongoing collection of tools useful for BrightSign
