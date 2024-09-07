@@ -10,7 +10,7 @@ function calculateProratedPrice() {
     }
 
     // Base price for players
-    const basePrice = 99;
+    const basePrice = 139;
     let discount = 0;
 
     // Apply discount based on pricing tier
