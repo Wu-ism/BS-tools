@@ -1,6 +1,6 @@
 /* Background and scaling */
   body {
-    background: url('./images/background.png') no-repeat center center fixed;
+    background-color: #4C4C4C; /* Set background color */
     background-size: cover;  
   height: 100vh;
   margin: 0;
