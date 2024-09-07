@@ -1,6 +1,6 @@
 /* Background and scaling */
   body {
-    background-color: #4C4C4C; /* Set background color */
+    background: linear-gradient(to right, #701896, #311C6B); /* Gradient color from purple to dark blue */
     background-size: cover;  
   height: 100vh;
   margin: 0;
