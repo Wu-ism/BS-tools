@@ -1,142 +1,233 @@
+/* Background and scaling */
 body {
-  font-family: 'Arial', sans-serif;
+  background: url('../images/background.png') no-repeat right top fixed;
+  background-size: cover;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  height: 100vh;
-  display: flex;
-  background-color: #0000008e;
 }
 
-.container {
-  margin: auto;
-  width: 25%;
-  padding: 50px;
-  border: 10px solid #311C6B;
-  background-color: #ffffff;
-  text-align: center;
-  border-radius: 15px;
-}
-
-img {
-  margin: auto;
-  display: block;
-  max-width: 100%;
-}
-
-label {
-  display: block;
-  width: 50%;
-  margin: 0 auto 15px;
-  font-size: 24px;
-  border-radius: 4px;
-}
-
-input, select, button {
-  display: block;
-  width: 50%;
-  margin: 0 auto 15px;
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 4px;
-}
-
-button {
-  cursor: pointer;
-  background-color: #5ea1e9;
-  border: none;
-  color: #ffffff;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-h1, h2 {
-  text-align: center;
-}
-
+/* Transparent Navbar */
 .navbar {
+  background: transparent;
+  padding: 10px 0;
   display: flex;
   justify-content: center;
-  background-color: #333;
-  padding: 10px 20px;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
 }
 
 .nav-list {
-  list-style-type: none;
-  padding: 0;
   display: flex;
-  gap: 15px;
+  justify-content: center;
+  list-style: none;
+}
+
+.nav-list li {
+  margin-left: 20px;
 }
 
 .nav-list a {
-  text-decoration: none;
   color: white;
-  transition: color 0.3s;
-  padding: 5px 10px;
+  font-size: 18px;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .nav-list a:hover {
-  color: #311C6B;
+  background-color: #701896; /* Ultraviolet for hover effect */
 }
 
-.toggle-button {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  background-color: transparent;
+/* Logo below navbar */
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0; /* Adjust margin to space out the logo */
+}
+
+.logo-container img {
+  max-width: 400px; /* Adjust the logo size as needed */
+}
+
+/* Introduction Section */
+.intro-section {
+  text-align: center;
+  color: #FFFFFF; /* White text for contrast */
+  padding: 50px 20px;
+  background: rgba(0, 0, 0, 0.7); /* Black semi-transparent background */
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.intro-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.intro-section p {
+  font-size: 1.2rem;
+}
+
+/* Tool Section Styling */
+.tool-section {
+  margin: 40px 0;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.7); /* Add background overlay */
+  padding: 40px 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.tool-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.tool-section p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
+.tool-section .btn {
+  background-color: #701896; /* Ultraviolet for buttons */
   border: none;
-  cursor: pointer;
+  padding: 10px 30px;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.bar {
-  background-color: white;
-  height: 3px;
-  width: 25px;
-  border-radius: 2px;
+.tool-section .btn:hover {
+  background-color: #49C0FF; /* Highlighter Blue on hover */
 }
 
+/* Section spacing for mobile responsiveness */
 @media (max-width: 768px) {
-  .navbar {
-      justify-content: space-between;
+  .tool-section {
+    padding: 20px;
   }
 
-  .toggle-button {
-      display: flex;
+  .tool-section h2 {
+    font-size: 2rem;
   }
 
-  .nav-list {
-      position: absolute;
-      top: 60px;
-      left: 0;
-      width: 100%;
-      background-color: #333;
-      flex-direction: column;
-      display: none;
-      gap: 10px;
-  }
-
-  .nav-list.active {
-      display: flex;
+  .tool-section p {
+    font-size: 1rem;
   }
 }
+
+/* Form styling */
+form {
+  width: 100%;
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 40px;
+  border: 2px solid #311C6B; /* BrightSign Purple */
+  border-radius: 10px;
+  background-color: #E5E1F0; /* Digital Purple */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form responsiveness */
+@media (max-width: 768px) {
+  form {
+      width: 90%;
+      margin: 20px auto;
+  }
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #701896; /* Ultraviolet */
+  border-color: #701896;
+}
+
+.btn-primary:hover {
+  background-color: #49C0FF; /* Highlighter Blue on hover */
+}
+
+/* Text styles */
 .red-text {
   color: red;
 }
-/* Center the modal vertically */
-.modal-dialog {
-  display: flex;
-  align-items: center;
-  min-height: 100vh;
+
+.large-bold-text {
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
-/* Make the price text large and bold */
-.large-bold-text {
-  font-size: 2em; /* Adjust this value to your preference */
-  font-weight: bold;
+/* Result Heading */
+.result-heading {
+  font-size: 2em;
+  color: #E5E1F0; /* BrightSign Purple */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Result Table Styling */
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #FFFFFF; /* White background for better contrast */
+  color: #1C1C1C; /* Soft Black text for contrast */
+}
+
+.result-table th, .result-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd; /* Light border */
+}
+
+.result-table th {
+  background-color: #311C6B; /* BrightSign Purple for the header */
+  color: #FFFFFF; /* White text for the header */
+}
+
+.result-table td {
+  color: #1C1C1C; /* Soft Black for text in the cells */
+  background-color: #F5F5F5; /* Slightly lighter background for readability */
+}
+
+/* Hover effect for rows */
+.result-table tr:hover {
+  background-color: #E5E1F0; /* Light Digital Purple when hovering over rows */
+}
+
+/* Even rows style for better distinction */
+.result-table tr:nth-child(even) {
+  background-color: #E8E6EF; /* Slightly darker for even rows to create more distinction */
+}
+
+/* Table shadow effect for better contrast */
+.result-table {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow to elevate the table */
+  border-radius: 10px;
+}
+
+/* Result section style */
+.hidden {
+  display: none;
+}
+
+/* Style for the copy button */
+.copy-btn {
+  background-color: #701896; /* Ultraviolet */
+  border: none;
+  padding: 8px 16px;
+  margin-top: 5px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.copy-btn:hover {
+  background-color: #49C0FF; /* Highlighter Blue */
+}
+
+.copy-btn.copied {
+  background-color: #1C1C1C; /* Soft Black */
+  color: #FFFFFF;
 }

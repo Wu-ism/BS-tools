@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prorated Pricing Calculator</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css"> <!-- Link to shared styles -->
+</head>
+
+<body>
+
+<!-- Logo container below the navbar -->
+<div class="logo-container">
+  <img src="images/bslogo.png" alt="BrightSign Logo">
+</div>
+
+    <!-- Navbar -->
+<nav class="navbar" aria-label="Main Navigation">
+  <ul class="nav-list">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="sub-calculator.html">Prorate Calculator</a></li>
+    <li><a href="serial-lookup.html">Look up Model Tool</a></li>
+    <li><a href="youtube-generator.html">YouTube Link Generator</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+
+
+    <!-- Form for Prorated Pricing Calculator -->
+    <form id="calculatorForm" onsubmit="event.preventDefault(); calculateProratedPrice();" class="form-container">
+        <h2 class="text-center mb-4">Prorated Pricing Calculator</h2>
+        <fieldset>
+            <div class="form-group">
+                <label for="numPlayers">Number of Players:</label>
+                <input type="number" id="numPlayers" class="form-control" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="endDate">Renewal Date:</label>
+                <input type="date" id="endDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="pricingTier">Pricing Tier:</label>
+                <select id="pricingTier" class="form-control">
+                    <option value="base">Base Price ($99/player/year)</option>
+                    <option value="tier1">Tier 1 - 25% off</option>
+                    <option value="tier2">Tier 2 - 30% off</option>
+                    <option value="tier3">Tier 3 - 35% off</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+            </div>
+        </fieldset>
+    </form>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="resultModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Price Breakdown</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Price: <span id="basePriceDisplay" class="red-text">$0</span></p>
+                    <p>Discount Applied: <span id="discountDisplay" class="red-text">0%</span></p>
+                    <p>Days Remaining: <span id="daysRemainingDisplay" class="red-text">0 days</span></p>
+                    <p>Number of Players: <span id="numPlayersDisplay" class="red-text">0</span></p>
+                    <hr>
+                    <p>Total Price: <span id="modalPrice" class="red-text large-bold-text">$0</span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="scripts/script.js"></script>
+</body>
+
+</html>

@@ -3,82 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prorated Pricing Calculator</title>
+    <title>BrightSign Tools - Home</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
+
 <body>
 
-<nav class="navbar" aria-label="Main Navigation">
-    <!-- ... your navbar content ... -->
-    <button class="toggle-button" aria-label="Toggle Menu">
-        <span class="bar"></span>
-        <span class="bar"></span>
-        <span class="bar"></span>
-    </button>
-    <ul class="nav-list">
-        <li><a href="#home">Prorate Tool</a></li>
-        <li><a href="serial-lookup.html">Look up Serial</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>    
-
-<div class="container">
-    <!-- ... your container content ... -->
+    <!-- Logo container below the navbar -->
+    <div class="logo-container">
         <img src="images/bslogo.png" alt="BrightSign Logo">
-    <h2>Prorated Pricing Calculator</h2>
-    
-    <form id="calculatorForm" onsubmit="event.preventDefault(); calculateProratedPrice();">
-        <fieldset>
-            
-            <label for="numPlayers">Number of Players:</label>
-            <input type="number" id="numPlayers" min="1" required>
-        
-            <label for="endDate">Renewal Date:</label>
-            <input type="date" id="endDate" required>
-        
-            <label for="pricingTier">Pricing Tier:</label>
-            <select id="pricingTier">
-                <option value="base">Base Price ($99/player/year)</option>
-                <option value="tier1">Tier 1 - 25% off</option>
-                <option value="tier2">Tier 2 - 30% off</option>
-                <option value="tier3">Tier 3 - 35% off</option>
-            </select>
-
-            <button type="submit">Calculate</button>
-        </fieldset>
-    </form>
-</div>
-
-<!-- Bootstrap Modal -->
-<div class="modal fade" id="resultModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Price Breakdown</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Price: <span id="basePriceDisplay" class="red-text">$0</span></p>
-          <p>Discount Applied: <span id="discountDisplay" class="red-text">0%</span></p>
-          <p>Days Remaining: <span id="daysRemainingDisplay" class="red-text">0 days</span></p>
-          <p>Number of Players: <span id="numPlayersDisplay" class="red-text">0</span></p>
-          <hr>
-          <p>Total Price: <span id="modalPrice" class="red-text large-bold-text">$0</span></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
     </div>
-  </div>  
-  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="scripts/script.js"></script>
+
+    <!-- Navbar -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sub-calculator.html">Prorate Calculator</a></li>
+            <li><a href="serial-lookup.html">Look up Model Tool</a></li>
+            <li><a href="youtube-generator.html">YouTube Link Generator</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Introduction Section -->
+    <section class="intro-section text-center mt-4">
+        <h1>Welcome to BrightSign Tools</h1>
+        <p>Explore our collection of tools to assist with digital signage setup, license management, and video generation for BrightSign devices.</p>
+    </section>
+
+    <!-- Prorate Calculator Section -->
+    <section class="tool-section mt-5">
+        <div class="container">
+            <h2>Prorate Calculator</h2>
+            <p>This tool helps calculate the prorated cost of licenses based on the number of players, pricing tiers, and time remaining until renewal.</p>
+            <a href="sub-calculator.html" class="btn btn-primary">Go to Prorate Calculator</a>
+        </div>
+    </section>
+
+    <!-- Serial Lookup Tool Section -->
+    <section class="tool-section mt-5">
+        <div class="container">
+            <h2>Serial Number Lookup Tool</h2>
+            <p>Use this tool to identify the model associated with a BrightSign device based on its serial number prefix.</p>
+            <a href="serial-lookup.html" class="btn btn-primary">Go to Serial Lookup Tool</a>
+        </div>
+    </section>
+
+    <!-- YouTube Link Generator Section -->
+    <section class="tool-section mt-5">
+        <div class="container">
+            <h2>YouTube Embed URL Generator</h2>
+            <p>Generate a customized YouTube embed link for video playback on BrightSign devices with specific parameters like autoplay and looping.</p>
+            <a href="youtube-generator.html" class="btn btn-primary">Go to YouTube Link Generator</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="tool-section mt-5 mb-5">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>If you have any questions or need assistance, please reach out via our contact form.</p>
+            <a href="contact.html" class="btn btn-primary">Go to Contact Page</a>
+        </div>
+    </section>
+
+    <script src="scripts/script.js"></script>
 </body>
 </html>
