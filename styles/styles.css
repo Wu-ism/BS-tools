@@ -1,6 +1,6 @@
 /* Background and scaling */
 body {
-  background: url('images/background.png') no-repeat right top fixed;
+  background: url('../images/background.jpg') no-repeat right top fixed;
   background-size: cover;
   height: 100vh;
   margin: 0;
