@@ -369,3 +369,95 @@ function openMailClient() {
     // Open the mail client
     window.location.href = mailtoLink;
 }
+
+function generateUrl() {
+    // Get the video ID from the input field
+    var videoId = document.getElementById('videoId').value.trim();
+
+    if (videoId) {
+        // Construct the embed URL with the required parameters
+        var embedUrl = 'https://www.youtube.com/embed/' + videoId +
+                       '?playlist=' + videoId +
+                       '&autoplay=1&rel=0&controls=0&showinfo=0&loop=1&cc_load_policy=1';
+
+        // Create a new table row for the result
+        var resultBody = document.getElementById('resultBody');
+        var newRow = document.createElement('tr');
+
+        // Create columns for Video ID, Generated URL, and Copy button
+        var videoIdCell = document.createElement('td');
+        videoIdCell.textContent = videoId;
+
+        var urlCell = document.createElement('td');
+        var urlLink = document.createElement('a');
+        urlLink.href = embedUrl;
+        urlLink.target = '_blank';
+        urlLink.textContent = embedUrl;
+        urlCell.appendChild(urlLink);
+
+        var actionCell = document.createElement('td');
+        var copyButton = document.createElement('button');
+        copyButton.classList.add('copy-btn');
+        copyButton.textContent = 'Copy to Clipboard';
+        copyButton.onclick = function() {
+            copyToClipboard(embedUrl, copyButton);
+        };
+        actionCell.appendChild(copyButton);
+
+        // Append the new cells to the row
+        newRow.appendChild(videoIdCell);
+        newRow.appendChild(urlCell);
+        newRow.appendChild(actionCell);
+
+        // Append the new row to the table
+        resultBody.appendChild(newRow);
+
+        // Show the result section
+        document.getElementById('result').classList.remove('hidden');
+
+        // Set the iframe's src to the generated URL for preview
+        var iframe = document.getElementById('iframePreview');
+        iframe.src = embedUrl;
+
+        // Ensure the iframe container is displayed and centered below the entry
+        document.getElementById('iframe-container').classList.remove('hidden');
+    }
+}
+
+function copyToClipboard(embedUrl, copyButton) {
+    // Create a temporary text area element
+    var tempInput = document.createElement('textarea');
+    tempInput.value = embedUrl;
+    document.body.appendChild(tempInput);
+
+    // Select and copy the text
+    tempInput.select();
+    document.execCommand('copy');
+
+    // Remove the temporary text area element
+    document.body.removeChild(tempInput);
+
+    // Change button text and color to indicate it's copied
+    copyButton.innerText = 'Copied!';
+    copyButton.classList.add('copied');
+
+    // Revert back to original button state after 2 seconds
+    setTimeout(function() {
+        copyButton.innerText = 'Copy to Clipboard';
+        copyButton.classList.remove('copied');
+    }, 2000);
+}
+
+function clearResults() {
+    // Clear the result table body
+    var resultBody = document.getElementById('resultBody');
+    resultBody.innerHTML = '';
+
+    // Hide the result section and iframe
+    document.getElementById('result').classList.add('hidden');
+    document.getElementById('iframe-container').classList.add('hidden');
+
+    // Reset iframe src to empty
+    var iframe = document.getElementById('iframePreview');
+    iframe.src = '';
+}

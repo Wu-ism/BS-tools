@@ -1,7 +1,7 @@
 /* Background and scaling */
-  body {
-    background: linear-gradient(to right, #701896, #311C6B); /* Gradient color from purple to dark blue */
-    background-size: cover;  
+body {
+  background: linear-gradient(to right, #701896, #311C6B); /* Gradient color from purple to dark blue */
+  background-size: cover;
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -230,4 +230,113 @@ form {
 .copy-btn.copied {
   background-color: #1C1C1C; /* Soft Black */
   color: #FFFFFF;
+}
+
+/* Center iframe */
+.iframe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+}
+
+#iframePreview {
+  max-width: 1280px; /* Adjust this to your preferred width */
+  width: 100%;
+  border: 5px solid #311C6B; /* BrightSign Purple border for iframe */
+  border-radius: 10px;
+}
+
+/* Add custom margin between buttons if needed */
+#clearButton {
+  margin-top: 15px; /* Customize spacing as needed */
+  background-color: #701896; /* Ultraviolet */
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#clearButton:hover {
+  background-color: #49C0FF; /* Highlighter Blue on hover */
+}
+
+/* Layout container for form and iframe side-by-side */
+.layout-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Aligns form and iframe at the top */
+  margin: 20px auto;
+  max-width: 1200px; /* Adjust the max width as needed */
+}
+
+/* Style for form container within the layout */
+.form-container {
+  flex: 0 0 60%; /* Make the form take 60% of the layout */
+  margin-right: 20px;
+}
+
+/* Style for iframe container within the layout */
+.iframe-container {
+  flex: 0 0 35%; /* Make the iframe container take 35% of the layout */
+  height: auto; /* Make the iframe adjust its height automatically */
+  border: 5px solid #311C6B; /* BrightSign Purple border */
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #E5E1F0; /* Digital Purple background */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Iframe styling */
+#iframePreview {
+  width: 640px;
+  height: 360px;
+  border: 5px solid #311C6B; /* BrightSign Purple border */
+  border-radius: 10px;
+}
+
+/* Result Table Styling - Smaller table */
+.result-table {
+  width: 60%; /* Reduce the table size */
+  margin: 0 auto; /* Center the table */
+  border-collapse: collapse;
+  background-color: #FFFFFF;
+  color: #1C1C1C; /* Soft Black text for contrast */
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Stronger shadow to elevate the table */
+}
+
+.result-table th, .result-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border: 1px solid #ddd; /* Light border */
+}
+
+.result-table th {
+  background-color: #311C6B; /* BrightSign Purple for the header */
+  color: #FFFFFF; /* White text for the header */
+}
+
+.result-table td {
+  background-color: #F5F5F5; /* Slightly lighter background for readability */
+  color: #1C1C1C; /* Soft Black for text in the cells */
+}
+
+/* Mobile responsiveness for layout */
+@media (max-width: 768px) {
+  .layout-container {
+    flex-direction: column; /* Stack form and iframe vertically on smaller screens */
+  }
+
+  .form-container, .iframe-container {
+    width: 100%; /* Ensure both form and iframe take full width on small screens */
+    margin: 10px 0; /* Add margin for separation */
+  }
+
+  .result-table {
+    width: 90%; /* Make the table width more flexible on smaller screens */
+  }
 }

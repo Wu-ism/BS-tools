@@ -16,17 +16,19 @@
         <img src="images/bslogo.png" alt="BrightSign Logo">
     </div>
 
-<!-- Navbar -->
-<nav class="navbar" aria-label="Main Navigation">
-    <ul class="nav-list">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="sub-calculator.html">Prorate Calculator</a></li>
-      <li><a href="serial-lookup.html">Look up Model Tool</a></li>
-      <li><a href="youtube-generator.html">YouTube URL Generator</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  </nav>
+    <!-- Navbar -->
+    <nav class="navbar" aria-label="Main Navigation">
+        <ul class="nav-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sub-calculator.html">Prorate Calculator</a></li>
+            <li><a href="serial-lookup.html">Look up Model Tool</a></li>
+            <li><a href="youtube-generator.html">YouTube URL Generator</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
 
+<!-- Layout container for form and iframe -->
+<div class="layout-container">
     <!-- Form for YouTube URL Generator -->
     <form id="urlGeneratorForm" class="form-container mt-4" onsubmit="generateUrl(); return false;">
         <h2 class="text-center mb-4">YouTube URL Generator</h2>
@@ -36,8 +38,17 @@
                 <input type="text" class="form-control" id="videoId" placeholder="e.g., 5McLcOgVfGE" required>
             </div>
             <button type="submit" class="btn btn-primary btn-block">Generate URL</button>
+            
+            <!-- Clear Results Button -->
+            <button id="clearButton" class="btn btn-secondary btn-block mt-3" type="button" onclick="clearResults()">Clear Results</button>
         </fieldset>
     </form>
+
+    <!-- Iframe for YouTube video preview -->
+    <div id="iframe-container" class="iframe-container hidden">
+        <iframe id="iframePreview" width="100%" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+</div>
 
     <!-- YouTube URL Result Section -->
     <div id="result" class="hidden mt-4">
@@ -53,6 +64,7 @@
             <tbody id="resultBody">
             </tbody>
         </table>
+        </div>
     </div>
 
     <script src="scripts/script.js"></script>

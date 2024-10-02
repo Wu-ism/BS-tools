@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optimized Stock Ticker with Logos and Triangles</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #E5E1F0; /* BrightSign Digital Purple */
+        }
+
+        .ticker-container {
+            width: 100%; /* Full width */
+            height: 192px; /* Fixed height of the zone */
+            background-color: #311C6B; /* BrightSign Purple */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ticker-wrap {
+            display: flex;
+            align-items: center; /* Centers content vertically */
+            white-space: nowrap;
+        }
+
+        .ticker-inner {
+            display: flex;
+            animation: scroll-left 180s linear infinite;
+            will-change: transform; /* Optimization hint for smooth animations */
+        }
+
+        .stock-item, .category-header {
+            display: inline-flex;
+            align-items: center;
+            padding: 0 50px;
+            color: #FFFFFF;
+            font-size: 56px;
+            line-height: 192px;
+        }
+
+        .category-header {
+            font-weight: bold;
+            color: #49C0FF; /* Highlighter Blue for section headers */
+        }
+
+        .stock-logo {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .positive {
+            color: #00FF00; /* Green for positive changes */
+            position: relative;
+        }
+
+        .negative {
+            color: #FF0000; /* Red for negative changes */
+            position: relative;
+        }
+
+        /* CSS triangles for positive/negative changes */
+        .positive::after, .negative::after {
+            content: '';
+            position: absolute;
+            right: -30px; /* Adjust based on how far you want the triangle from the text */
+            top: 30%;
+            border-style: solid;
+        }
+
+        .positive::after {
+            border-width: 0 10px 15px 10px; /* Creates upward green triangle */
+            border-color: transparent transparent #00FF00 transparent;
+        }
+
+        .negative::after {
+            border-width: 15px 10px 0 10px; /* Creates downward red triangle */
+            border-color: #FF0000 transparent transparent transparent;
+        }
+
+        /* Scrolling animation */
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(100%);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ticker-container">
+        <div class="ticker-wrap">
+            <div class="ticker-inner" id="stock-ticker">
+                <!-- Dynamic content will be injected here by JavaScript -->
+            </div>
+            <div class="ticker-inner" id="stock-ticker-clone">
+                <!-- Cloned content will be injected here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'crudmd9r01qi6bkavccgcrudmd9r01qi6bkavcd0'; // Your Finnhub API key
+        const cacheTimeout = 300000; // 5 minutes cache timeout
+        let cachedStockData = {};  // Cache to store stock data
+
+        // Arrays for stock categories
+        const techStocks = ['AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA'];
+        const hospitalityStocks = ['MAR', 'HLT', 'H', 'IHG'];
+        const financialStocks = ['JPM', 'BAC', 'WFC', 'GS', 'MS'];
+
+        // Logos for each stock (you can replace these with actual URLs to logos)
+        const stockLogos = {
+            'AAPL': 'https://logo.clearbit.com/apple.com',
+            'GOOGL': 'https://logo.clearbit.com/google.com',
+            'MSFT': 'https://logo.clearbit.com/microsoft.com',
+            'AMZN': 'https://logo.clearbit.com/amazon.com',
+            'TSLA': 'https://logo.clearbit.com/tesla.com',
+            'MAR': 'https://logo.clearbit.com/marriott.com',
+            'HLT': 'https://logo.clearbit.com/hilton.com',
+            'H': 'https://logo.clearbit.com/hyatt.com',
+            'IHG': 'https://logo.clearbit.com/ihg.com',
+            'JPM': 'https://logo.clearbit.com/jpmorganchase.com',
+            'BAC': 'https://logo.clearbit.com/bankofamerica.com',
+            'WFC': 'https://logo.clearbit.com/wellsfargo.com',
+            'GS': 'https://logo.clearbit.com/goldmansachs.com',
+            'MS': 'https://logo.clearbit.com/morganstanley.com'
+        };
+
+        // Function to fetch stock data from Finnhub API for a given symbol
+        async function fetchStockData(symbol) {
+            // Check if data is already cached
+            if (cachedStockData[symbol]) {
+                return cachedStockData[symbol];  // Return cached data if available
+            }
+
+            const apiUrl = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${API_KEY}`;
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const stockData = {
+                    symbol: symbol,
+                    price: data.c, // Current price
+                    change: data.d, // Change in price
+                    changePercent: data.dp // Percent change
+                };
+                cachedStockData[symbol] = stockData;  // Cache the data
+                return stockData;
+            } catch (error) {
+                console.error(`Error fetching data for ${symbol}:`, error);
+                return null;
+            }
+        }
+
+        // Function to update the stock ticker with categorized data
+        async function updateStockTicker() {
+            const stockTicker = document.getElementById('stock-ticker');
+            const stockTickerClone = document.getElementById('stock-ticker-clone');
+            stockTicker.innerHTML = ''; // Clear previous content
+            stockTickerClone.innerHTML = ''; // Clear previous content
+
+            // Helper function to add a category header
+            function addCategoryHeader(categoryName, tickerElement) {
+                const header = document.createElement('div');
+                header.classList.add('category-header');
+                header.innerHTML = categoryName;
+                tickerElement.appendChild(header);
+            }
+
+            // Helper function to add stock data
+            async function addStockItems(stocks, categoryName, tickerElement) {
+                addCategoryHeader(categoryName, tickerElement);
+                for (let symbol of stocks) {
+                    const stockData = await fetchStockData(symbol);
+                    if (stockData) {
+                        const stockItem = document.createElement('div');
+                        stockItem.classList.add('stock-item');
+                        stockItem.setAttribute('data-symbol', symbol);  // Set symbol attribute for lazy loading
+
+                        // Create image for logo
+                        const logoImg = document.createElement('img');
+                        logoImg.src = stockLogos[symbol];  // Get the logo from stockLogos object
+                        logoImg.classList.add('stock-logo');
+
+                        // Create a span for the stock text
+                        const stockText = document.createElement('span');
+                        stockText.innerHTML = `${stockData.symbol}: $${parseFloat(stockData.price).toFixed(2)} (${parseFloat(stockData.changePercent).toFixed(2)}%)`;
+
+                        // Apply green or red color and add triangle based on the percentage change
+                        if (stockData.changePercent > 0) {
+                            stockText.classList.add('positive');
+                        } else {
+                            stockText.classList.add('negative');
+                        }
+
+                        // Append the logo and stock text to the stock item
+                        stockItem.appendChild(logoImg);
+                        stockItem.appendChild(stockText);
+
+                        tickerElement.appendChild(stockItem);
+                    }
+                }
+            }
+
+            // Add Tech Stocks
+            await addStockItems(techStocks, 'Tech Stocks', stockTicker);
+            await addStockItems(techStocks, 'Tech Stocks', stockTickerClone);
+
+            // Add Hospitality Stocks
+            await addStockItems(hospitalityStocks, 'Hospitality Stocks', stockTicker);
+            await addStockItems(hospitalityStocks, 'Hospitality Stocks', stockTickerClone);
+
+            // Add Financial Stocks
+            await addStockItems(financialStocks, 'Financial Stocks', stockTicker);
+            await addStockItems(financialStocks, 'Financial Stocks', stockTickerClone);
+        }
+
+        // Initial fetch
+        updateStockTicker();
+
+        // Update every 5 minutes
+        setInterval(updateStockTicker, 300000);
+    </script>
+</body>
+</html>
