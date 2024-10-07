@@ -3,74 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Optimized Stock Ticker with Logos and Triangles</title>
+    <title>BrightSign Stock Ticker</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            overflow: hidden;
             font-family: Arial, sans-serif;
-            background-color: #E5E1F0; /* BrightSign Digital Purple */
-        }
-
-        .ticker-container {
-            width: 100%; /* Full width */
-            height: 192px; /* Fixed height of the zone */
-            background-color: #311C6B; /* BrightSign Purple */
+            background-color: #311c6b00; /* Transparent */
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
+            height: 100vh; /* Make the body take up the full screen height */
+        }
+
+        .ticker-container {
+            width: 90%; /* Adjust the width of the ticker to fit the center */
+            max-width: 1920px; /* Limit the max width for large screens */
+            height: 60px; /* Height based on image proportions */
+            display: block;
             position: relative;
+            overflow: hidden;
+            background: transparent; /* Transparent background */
         }
 
         .ticker-wrap {
-            display: flex;
-            align-items: center; /* Centers content vertically */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             white-space: nowrap;
+            overflow: hidden;
         }
 
         .ticker-inner {
-            display: flex;
-            animation: scroll-left 180s linear infinite; /* Slowed down to 180s for slower animation */
-            will-change: transform; /* Optimization hint for smooth animations */
-            transform: translateX(100%); /* Start fully off-screen */
+            display: inline-block;
+            white-space: nowrap;
+            height: 100%;
+            animation: scroll-left 180s linear infinite;
         }
 
-        .stock-item, .category-header {
-            display: inline-flex;
-            align-items: center;
-            padding: 0 50px;
+        .stock-item {
+            display: inline-block;
+            padding: 0 15px;
             color: #FFFFFF;
-            font-size: 56px;
-            line-height: 192px;
+            background-color: #1C1C1C; /* Dark background for ticker items */
+            border-radius: 10px; /* Rounded corners */
+            margin-right: 10px;
+            font-size: 18px;
+            height: 40px;
+            line-height: 40px;
+            vertical-align: middle;
+            text-align: center;
         }
 
-        /* CSS triangles for positive/negative changes */
-        .positive::after, .negative::after {
-            content: '';
-            position: absolute;
-            right: -30px;
-            top: 30%;
-            border-style: solid;
+        .stock-logo {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            vertical-align: middle;
         }
 
-        .positive::after {
-            border-width: 0 10px 15px 10px; /* Creates upward green triangle */
-            border-color: transparent transparent #00FF00 transparent;
+        .positive {
+            color: #00FF00;
         }
 
-        .negative::after {
-            border-width: 15px 10px 0 10px; /* Creates downward red triangle */
-            border-color: #FF0000 transparent transparent transparent;
+        .negative {
+            color: #FF0000;
         }
 
+        /* Scrolling animation */
         @keyframes scroll-left {
             0% {
-                transform: translateX(100%); /* Start off-screen to the right */
+                transform: translateX(100%);
             }
             100% {
-                transform: translateX(-100%); /* Move all the way to the left */
+                transform: translateX(-100%);
             }
         }
     </style>
@@ -81,15 +89,11 @@
             <div class="ticker-inner" id="stock-ticker">
                 <!-- Dynamic content will be injected here by JavaScript -->
             </div>
-            <div class="ticker-inner" id="stock-ticker-clone">
-                <!-- Cloned content will be injected here by JavaScript -->
-            </div>
         </div>
     </div>
 
     <script>
         const API_KEY = 'crudmd9r01qi6bkavccgcrudmd9r01qi6bkavcd0'; // Your Finnhub API key
-        const cacheTimeout = 300000; // 5 minutes cache timeout
         let cachedStockData = {};  // Cache to store stock data
 
         // Arrays for stock categories
@@ -97,7 +101,7 @@
         const hospitalityStocks = ['MAR', 'HLT', 'H', 'IHG'];
         const financialStocks = ['JPM', 'BAC', 'WFC', 'GS', 'MS'];
 
-        // Logos for each stock
+        // Logos for each stock (replace these with actual URLs to logos)
         const stockLogos = {
             'AAPL': 'https://logo.clearbit.com/apple.com',
             'GOOGL': 'https://logo.clearbit.com/google.com',
@@ -118,7 +122,7 @@
         // Function to fetch stock data from Finnhub API for a given symbol
         async function fetchStockData(symbol) {
             if (cachedStockData[symbol]) {
-                return cachedStockData[symbol]; // Return cached data if available
+                return cachedStockData[symbol];  // Return cached data if available
             }
 
             const apiUrl = `https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${API_KEY}`;
@@ -131,7 +135,7 @@
                     change: data.d, // Change in price
                     changePercent: data.dp // Percent change
                 };
-                cachedStockData[symbol] = stockData; // Cache the data
+                cachedStockData[symbol] = stockData;  // Cache the data
                 return stockData;
             } catch (error) {
                 console.error(`Error fetching data for ${symbol}:`, error);
@@ -142,29 +146,19 @@
         // Function to update the stock ticker with categorized data
         async function updateStockTicker() {
             const stockTicker = document.getElementById('stock-ticker');
-            const stockTickerClone = document.getElementById('stock-ticker-clone');
             stockTicker.innerHTML = ''; // Clear previous content
-            stockTickerClone.innerHTML = ''; // Clear previous content
 
-            function addCategoryHeader(categoryName, tickerElement) {
-                const header = document.createElement('div');
-                header.classList.add('category-header');
-                header.innerHTML = categoryName;
-                tickerElement.appendChild(header);
-            }
-
-            async function addStockItems(stocks, categoryName, tickerElement) {
-                addCategoryHeader(categoryName, tickerElement);
+            // Helper function to add stock data
+            async function addStockItems(stocks) {
                 for (let symbol of stocks) {
                     const stockData = await fetchStockData(symbol);
                     if (stockData) {
                         const stockItem = document.createElement('div');
                         stockItem.classList.add('stock-item');
-                        stockItem.setAttribute('data-symbol', symbol); // Set symbol attribute for lazy loading
 
                         // Create image for logo
                         const logoImg = document.createElement('img');
-                        logoImg.src = stockLogos[symbol];
+                        logoImg.src = stockLogos[symbol];  // Get the logo from stockLogos object
                         logoImg.classList.add('stock-logo');
 
                         // Create a span for the stock text
@@ -182,34 +176,19 @@
                         stockItem.appendChild(logoImg);
                         stockItem.appendChild(stockText);
 
-                        tickerElement.appendChild(stockItem);
+                        stockTicker.appendChild(stockItem);
                     }
                 }
             }
 
-            // Add stock items for each category
-            await addStockItems(techStocks, 'Tech Stocks', stockTicker);
-            await addStockItems(techStocks, 'Tech Stocks', stockTickerClone);
-            await addStockItems(hospitalityStocks, 'Hospitality Stocks', stockTicker);
-            await addStockItems(hospitalityStocks, 'Hospitality Stocks', stockTickerClone);
-            await addStockItems(financialStocks, 'Financial Stocks', stockTicker);
-            await addStockItems(financialStocks, 'Financial Stocks', stockTickerClone);
+            // Add stocks
+            await addStockItems(techStocks);
+            await addStockItems(hospitalityStocks);
+            await addStockItems(financialStocks);
         }
 
-        // Function to start the ticker animation once content is loaded
-        function startTicker() {
-            const tickerInnerElements = document.querySelectorAll('.ticker-inner');
-            tickerInnerElements.forEach(ticker => {
-                ticker.style.animationPlayState = 'running'; // Start animation
-            });
-        }
-
-        // Wait for all content (including images) to load before starting the ticker
-        window.onload = () => {
-            updateStockTicker().then(() => {
-                startTicker();
-            });
-        };
+        // Initial fetch
+        updateStockTicker();
 
         // Update every 5 minutes
         setInterval(updateStockTicker, 300000);
